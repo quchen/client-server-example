@@ -16,11 +16,10 @@ main = do
     serverLoop host port
 
 serverLoop :: HostName -> Int -> IO ()
-serverLoop host port = serve (Host host) (show port) foo
-
-foo (socket, remoteAddr) = do
+serverLoop host port
+  = serve (Host host) (show port) (\(socket, remoteAddr) -> do
         putStrLn ("Client " ++ show remoteAddr ++ " connected")
-        handleClient socket remoteAddr
+        handleClient socket remoteAddr )
 
 
 
